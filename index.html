@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forno Fecchio | Panifício Artesanal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tipografia do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@1,600;1,800&family=Ultra&display=swap" rel="stylesheet">
+
+    <style>
+        /* Tipografia Baseada na Identidade */
+        .font-display { font-family: 'Archivo Black', sans-serif; }
+        .font-mono { font-family: 'Space Mono', monospace; }
+        .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+        .font-clarendon { font-family: 'Clarendon', 'Ultra', serif; font-weight: 900; }
+
+        /* Cores Oficiais */
+        :root {
+            --amarelo: #FFD141;
+            --laranja: #F15A29;
+            --preto: #111;
+        }
+
+        /* Fundo com Wallpaper Escurecido */
+        body {
+            background-color: #111; /* Cor escura de segurança */
+            
+            /* Camada escura (rgba) por cima da imagem 'fundo2.jpg' */
+            background-image: 
+                linear-gradient(rgba(230, 210, 107, 0.75), rgba(17, 17, 17, 0.85)), 
+                url('fundo2.png'); 
+            
+            background-size: cover; /* Cobre a tela toda. Mude para 'contain' se quiser a imagem 100% inteira sem nenhum corte nas bordas */
+            background-position: center; /* Centraliza a imagem */
+            background-attachment: fixed; /* Deixa o fundo parado enquanto a página rola */
+            background-repeat: no-repeat;
+            
+            color: var(--preto);
+        }
+
+        /* Sombras Sólidas Neo-brutalistas */
+        .brutal-shadow {
+            box-shadow: 6px 6px 0px 0px var(--preto);
+            transition: all 0.2s ease;
+        }
+        .brutal-shadow:hover {
+            box-shadow: 10px 10px 0px 0px var(--preto);
+            transform: translate(-4px, -4px);
+        }
+        .brutal-shadow-static {
+            box-shadow: 6px 6px 0px 0px var(--preto);
+        }
+
+        /* Etiquetas (Badges) */
+        .brutal-badge {
+            border: 2px solid var(--preto);
+            padding: 2px 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: inline-block;
+            background-color: var(--amarelo);
+        }
+
+        /* Animação do Letreiro (Marquee) */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            background: var(--preto);
+            color: var(--amarelo);
+            border-top: 4px solid var(--preto);
+            border-bottom: 4px solid var(--preto);
+            padding: 12px 0;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Layout de Jornal para o Dicionário de Pães */
+        .zine-columns {
+            column-count: 1;
+            column-gap: 2rem;
+        }
+        @media (min-width: 768px) { .zine-columns { column-count: 2; } }
+        @media (min-width: 1024px) { .zine-columns { column-count: 3; } }
+        .zine-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="font-mono antialiased overflow-x-hidden">
+
+    <!-- CABEÇALHO / MENU -->
+    <header class="fixed top-0 w-full z-50 bg-[#FFD141] border-b-4 border-[#111]">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
+            
+            <!-- Logótipo -->
+            <a href="#" class="block h-16 md:h-24 -ml-2 hover:scale-105 transition-transform duration-300">
+                <img src="logo_forno.png" alt="Forno Fecchio" class="h-full object-contain mix-blend-multiply" onerror="this.outerHTML='<div class=\'text-2xl font-display text-[#F15A29]\'>FORNO FECCHIO</div>'">
+            </a>
+
+            <!-- Ligações de Navegação -->
+            <div class="hidden md:flex space-x-6 lg:space-x-10 font-mono font-bold text-base lg:text-lg uppercase items-center tracking-wider text-[#111]">
+                <a href="#cardapio" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Cardápio</a>
+                <a href="#especiais" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Especiais</a>
+                <a href="#unidades" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Onde Estamos</a>
+            </div>
+            
+            <!-- Botão Retrô WhatsApp -->
+            <a href="https://wa.me/5511999999999" target="_blank" class="hidden md:inline-block bg-[#F15A29] text-white border-4 border-[#111] px-6 py-3 font-display uppercase tracking-widest text-sm brutal-shadow hover:bg-[#111] hover:text-[#F15A29] transition-colors">
+                Fazer Pedido
+            </a>
+        </nav>
+    </header>
+
+    <!-- SECÇÃO DE DESTAQUE (Hero) -->
+    <section class="pt-40 pb-16 px-6 container mx-auto flex flex-col items-center text-center">
+        <!-- Balão de Texto -->
+        <div class="bg-white border-4 border-[#111] px-4 py-1 mb-8 inline-block transform -rotate-2 brutal-shadow-static">
+            <span class="font-clarendon tracking-widest text-[#F15A29] text-xl">FFF</span>
+        </div>
+        
+        <!-- Título principal agora em blocos para destacar no fundo escuro -->
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-display uppercase leading-tight mb-10 space-y-4">
+            <span class="bg-[#FFD141] text-[#111] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform -rotate-1">Forno</span> <br> 
+            <span class="bg-white text-[#F15A29] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform rotate-1 mt-2">Fecchio</span>
+        </h1>
+        
+        <p class="max-w-xl font-bold text-lg bg-white border-4 border-[#111] p-5 brutal-shadow-static transform rotate-1 text-[#111]">
+            Resgatamos a essência da panificação. Sem aditivos, sem pressa, apenas o sabor real da fermentação 100% natural.
+        </p>
+    </section>
+
+    <!-- LETREIRO ANIMADO (Marquee) -->
+    <div class="w-full rotate-1 transform scale-105 z-10 relative mt-8 mb-16">
+        <div class="marquee-container brutal-shadow-static">
+            <div class="marquee-content font-display text-2xl uppercase tracking-widest">
+                <span>FERMENTAÇÃO NATURAL ✹ FARINHAS ORGÂNICAS ✹ ASSADO NA PEDRA ✹ RECEITAS TRADICIONAIS ✹ </span>
+                <span>FERMENTAÇÃO NATURAL ✹ FARINHAS ORGÂNICAS ✹ ASSADO NA PEDRA ✹ RECEITAS TRADICIONAIS ✹ </span>
+                <span>FERMENTAÇÃO NATURAL ✹ FARINHAS ORGÂNICAS ✹ ASSADO NA PEDRA ✹ RECEITAS TRADICIONAIS ✹ </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CABEÇALHO DO CARDÁPIO -->
+    <section id="cardapio" class="pt-16 container mx-auto px-6">
+        <div class="pb-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+                <!-- Título Cardápio em bloco amarelo -->
+                <h1 class="text-5xl md:text-7xl font-display uppercase tracking-tighter text-[#111] bg-[#FFD141] border-4 border-[#111] px-6 py-3 brutal-shadow-static inline-block transform -rotate-1">
+                    CARDÁPIO
+                </h1>
+            </div>
+            <div class="flex flex-col items-start md:items-end text-left md:text-right">
+                <p class="font-bold uppercase bg-white border-4 border-[#111] px-4 py-2 brutal-shadow-static mb-2 text-[#F15A29]">
+                    Consulte disponibilidade
+                </p>
+                <span class="text-xs max-w-xs font-bold bg-white p-2 border-2 border-[#111] text-[#111]">
+                    Pães feitos artesanalmente, podem ter variações entre eles e de uma fornada para a outra.
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO: TEM SEMPRE -->
+    <section class="container mx-auto px-6 pb-20">
+        <div class="mb-10">
+            <h2 class="text-4xl font-display uppercase inline-block bg-[#111] text-[#FFD141] px-4 py-2 border-2 border-[#FFD141] transform -rotate-1">TEM SEMPRE</h2>
+            <br>
+            <p class="font-bold mt-4 max-w-2xl text-lg bg-white p-3 border-4 border-[#111] brutal-shadow-static inline-block text-[#111]">Produtos que temos todos os dias (de terça a sábado) em nossas prateleiras e balcão.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- PÃES -->
+            <div class="bg-white border-4 border-[#111] p-6 brutal-shadow">
+                <h3 class="font-display text-2xl uppercase border-b-4 border-[#111] mb-4 text-[#F15A29] pb-2">Pães</h3>
+                <ul class="space-y-3 font-bold text-lg uppercase tracking-wider">
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Pão da casa</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Baguette</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Meia baguette</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Ciabatta</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Ramazan Pidesi</li>
+                </ul>
+            </div>
+
+            <!-- SALGADOS -->
+            <div class="bg-[#F15A29] text-white border-4 border-[#111] p-6 brutal-shadow">
+                <h3 class="font-display text-2xl uppercase border-b-4 border-white mb-4 pb-2">Salgados</h3>
+                <ul class="space-y-3 font-bold text-lg uppercase tracking-wider">
+                    <li class="border-b-2 border-dashed border-white/30 pb-1">Pãozinho de tapioca</li>
+                    <li class="border-b-2 border-dashed border-white/30 pb-1">Bialy vegano</li>
+                    <li class="border-b-2 border-dashed border-white/30 pb-1">Bialy com queijo de cabra</li>
+                </ul>
+            </div>
+
+            <!-- DOCES -->
+            <div class="bg-white border-4 border-[#111] p-6 brutal-shadow">
+                <h3 class="font-display text-2xl uppercase border-b-4 border-[#111] mb-4 text-[#F15A29] pb-2">Doces</h3>
+                <ul class="space-y-3 font-bold text-lg uppercase tracking-wider">
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Cookie de chocolate</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1 leading-tight text-sm">Cookie de cupuaçú, castanha do pará e caramelo</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Briovni</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Rolinho de canela</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Bostock</li>
+                </ul>
+            </div>
+
+            <!-- FOLHADOS -->
+            <div class="bg-white border-4 border-[#111] p-6 brutal-shadow lg:col-span-2">
+                <h3 class="font-display text-2xl uppercase border-b-4 border-[#111] mb-4 text-[#F15A29] pb-2">Folhados</h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 font-bold text-base uppercase tracking-wider">
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Croissant</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Medialuna</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Pain au chocolat</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Tortinha de maçã e baunilha</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Croissant de amêndoas</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Folhado de queijo</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Croissant de Presunto e queijo</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Enroladinho de salsicha</li>
+                    <li class="border-b-2 border-dashed border-[#111]/20 pb-1">Crustoli</li>
+                </ul>
+            </div>
+
+            <!-- BRIOCHES -->
+            <div class="bg-[#111] text-[#FFD141] border-4 border-[#111] p-6 brutal-shadow">
+                <h3 class="font-display text-2xl uppercase border-b-4 border-[#FFD141] mb-4 pb-2">Brioches</h3>
+                <ul class="space-y-3 font-bold text-lg uppercase tracking-wider">
+                    <li class="border-b-2 border-dashed border-[#FFD141]/30 pb-1">Brioche clássico</li>
+                    <li class="pb-1 text-white">Bisnaguinha <br> <span class="text-sm text-[#FFD141]">- pct 4 unidades</span> <br> <span class="text-sm text-[#FFD141]">- pct 6 unidades</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO: ESPECIAIS DO DIA -->
+    <section id="especiais" class="py-20 container mx-auto px-6">
+        <div class="bg-white border-4 border-[#111] brutal-shadow-static p-8 md:p-12 relative overflow-hidden">
+            <!-- Etiqueta decorativa -->
+            <div class="absolute -top-6 -right-6 bg-[#F15A29] text-white w-24 h-24 rounded-full flex items-center justify-center border-4 border-[#111] font-display text-xl transform rotate-12">
+                100%
+            </div>
+
+            <h2 class="text-4xl md:text-5xl font-display uppercase mb-4 text-[#111]">ESPECIAIS DO DIA</h2>
+            <p class="font-bold mb-10 border-b-4 border-[#111] pb-6 text-lg max-w-3xl text-[#111]">
+                Pães de fermentação 100% natural e farinhas limpas (orgânicas e sem aditivos ou "melhoradores")
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 bg-white/90 p-4 border-2 border-[#111] border-dashed">
+                <!-- TERÇA -->
+                <div class="border-l-8 border-[#111] pl-4">
+                    <span class="bg-[#F15A29] text-white px-3 py-1 font-display text-xl border-2 border-[#111]">TER</span>
+                    <ul class="mt-4 font-bold space-y-2 uppercase text-sm text-[#111]">
+                        <li>Pão integral com grãos</li>
+                        <li>Pão integral</li>
+                    </ul>
+                </div>
+                <!-- QUARTA -->
+                <div class="border-l-8 border-[#111] pl-4">
+                    <span class="bg-[#111] text-[#FFD141] px-3 py-1 font-display text-xl border-2 border-[#111]">QUA</span>
+                    <ul class="mt-4 font-bold space-y-2 uppercase text-sm text-[#111]">
+                        <li>Pão de centeio com sementes de girassol</li>
+                        <li>Borodinski</li>
+                    </ul>
+                </div>
+                <!-- QUINTA -->
+                <div class="border-l-8 border-[#111] pl-4">
+                    <span class="bg-[#F15A29] text-white px-3 py-1 font-display text-xl border-2 border-[#111]">QUI</span>
+                    <ul class="mt-4 font-bold space-y-2 uppercase text-sm text-[#111]">
+                        <li>Pão integral com grãos</li>
+                        <li>Pão de abóbora</li>
+                    </ul>
+                </div>
+                <!-- SEXTA -->
+                <div class="border-l-8 border-[#111] pl-4">
+                    <span class="bg-[#111] text-[#FFD141] px-3 py-1 font-display text-xl border-2 border-[#111]">SEX</span>
+                    <ul class="mt-4 font-bold space-y-2 uppercase text-sm text-[#111]">
+                        <li>Pão de trigo sarraceno</li>
+                        <li>Filão de calabresa, alecrim e manjericão</li>
+                        <li>Focaccia abobrinha, queijo meia cura e melado de cana</li>
+                    </ul>
+                </div>
+                <!-- SÁBADO -->
+                <div class="border-l-8 border-[#111] pl-4">
+                    <span class="bg-[#F15A29] text-white px-3 py-1 font-display text-xl border-2 border-[#111]">SÁB</span>
+                    <ul class="mt-4 font-bold space-y-2 uppercase text-sm text-[#111]">
+                        <li>Pão integral</li>
+                        <li>Pão de alecrim com sal grosso</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-[#FFD141] border-2 border-[#111] p-4 text-sm font-bold uppercase inline-block text-[#111]">
+                ✹ Pães sujeitos a disponibilidade e sazonalidade <br>
+                ✹ Alguns pães, como as focaccias, saem mais tarde, por volta das 11h
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO: SOBRE OS PRODUTOS (ZINE / DICIONÁRIO) -->
+    <section class="py-20 container mx-auto px-6">
+        <h2 class="text-4xl md:text-5xl font-display uppercase mb-4 text-[#111] bg-white inline-block border-4 border-[#111] px-6 py-3 brutal-shadow-static transform rotate-1">SOBRE OS PRODUTOS</h2>
+        <br>
+        <p class="font-bold mb-12 mt-4 bg-[#FFD141] text-[#111] inline-block px-4 py-2 border-2 border-[#111] brutal-shadow-static uppercase transform -rotate-1">Ordem Alfabética</p>
+        
+        <!-- Grelha em Estilo de Jornal -->
+        <div class="zine-columns bg-white border-4 border-[#111] p-6 lg:p-10 brutal-shadow-static">
+            
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Baguette</h4>
+                <div class="mb-2"><span class="brutal-badge">vegana e orgânica</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Receita tradicional francesa deste pão mundialmente conhecido. Feito com farinha de trigo orgânico de pequenos produtores brasileiros, água, sal, fermento natural (levain / sourdough) e fermento biológico. O formato alongado faz com que tenha mais casca do que miolo. Opção de meia-baghette, com metade do tamanho e do preço.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Bialy</h4>
+                <div class="mb-2"><span class="brutal-badge">versão original vegana sem queijo</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Pão de origem polonesa, da cidade de Bialystok, é feito com cebola que caramelizamos lentamente na casa, farinha de rosca que fazemos com nossos pães e queijo de cabra.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Bisnaguinha</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Nossa massa de brioche em bolinhas grudadas, que desfiam ao serem separadas. Opções com 4 e 6 bolinhas.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Bostock</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Uma fatia do nosso brioche molhada em calda de laranja e rum. Por cima, um creme de amêndoas, amêndoas quebradinhas crocantes, açúcar de confeiteiro, raspas de limão siciliano.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Brioche Clássico</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">A base dos nossos brioches leva leite, ovos orgânicos, farinha de trigo orgânico e bastante manteiga, que deixam esse pão bem macio e saboroso.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Briovni</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">É um pássaro? É um avião? Não! É um brioche voador não identificado, amanteigado, açucarado e com um formato que lembra um ovni. Bem leve, simples e delicioso.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Ciabatta</h4>
+                <div class="mb-2"><span class="brutal-badge">vegana e orgânica</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Pão criado na cidade de Rovigo, no norte da Itália, de onde veio o Luigi Fecchio, bisavô padeiro do nosso padeiro. Tem alta hidratação, acima de 90%, farinha de trigo orgânico e fermentação 100% natural.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Cookie de Chocolate</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Receita da Carol para esse clássico. O nosso leva uma quantidade generosa de gotas de chocolate 70%.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Cookie de Cupuaçu</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Uma feliz combinação de cupuaçu cristalizado que trazemos da Bahia, castanhas do Pará e caramelo belga. Mais uma criação do núcleo paraense do Forno Fecchio.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Croissant</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Por aqui esse clássico francês é feito com farinha francesa e manteiga argentina. Leve, amanteigado, laminado e crocante, como tem que ser.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Crustoli</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Trançadinho de massa folhada passado no acúcar com canela. Era um dos preferidos da Dona Antônia, avó do nosso padeiro, que chamava esse doce de "Crôstele". Perfeito para acompanhar um café.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Enroladinho Salsicha</h4>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Massa folhada invertida com salsicha artesanal Temra, chicrute fermentado na casa e mostarda fermentada na cerveja Catimba.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Focaccia Abobrinha</h4>
+                <div class="mb-2"><span class="brutal-badge">vegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Com queijo da Serra da Canastra e lâminas de abobrinha, é finalizada com melado de figo. Tem 90% de hidratação, azeite extravirgem e fermentação 100% natural.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Focaccia Azeitona</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Feita com azeitonas azapa, essa focaccia de 90% de hidratação, azeite extravirgem e fermentação 100% natural é finalizada com uma pitada de pimenta do reino, azeite extravirgem e raspas de limão siciliano.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Folhado de Queijo</h4>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Nossa massa folhada com mussarela Roni e queijo mineiro da Roça da Cidade.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Croissant Presunto e Queijo</h4>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Um clássico dos intervalo de escola. Massa folhada com presunto de charcutaria e queijo Roni.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Medialuna</h4>
+                <div class="mb-2"><span class="brutal-badge">vegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Nossa versão do folhado argentino, primo latinoamericano do croissant, leva uma calda feita com cascas de laranja e limão e com um shot de Hesperidina, um bitter de laranja amarga típico de lá. Bem macio e docinho, vai bem com tudo.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pain Au Chocolat</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Esse folheado de origem francesa é enrolado com dois bastões de chocolate belga, na medida certa. A massa é a mesma do Croissant.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão da Casa</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano, fermentação 100% natural</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Feito com uma combinação de farinha de trigo orgânico, farinha integral de centeio orgânico e farinha de trigo sarraceno, com um leve toque de cumaru, que potencializa os sabores.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão de Abóbora</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Sucesso em nossas prateleiras, leva abóbora cabotiá assada, que misturamos na massa e fermenta com o pão, sementes de abóbora no miolo e também por fora. Fica com o miolo bem macio e saboroso.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão de Alecrim com Sal</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano e orgânico</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Com farinha de trigo orgânico e alecrim orgânico do Sítio Valdevinos, é finalizado com uma leve camada de sal grosso de Mossoró.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão de Calabresa e Ervas</h4>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Batemos a calabresa e as ervas frescas com a massa, para fermentar tudo junto. Resultado saboroso e aromático. Leva farinha de trigo orgânico, centeio orgânico, calabresa defumada Vea`s e ervas orgânicas.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão de Centeio e Girassol</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Pão de centeio integral orgânico com sementes de girassol, 100% fermentação natural e leva apenas a farinha de trigo orgânico que alimenta nosso fermento.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão de Hamburger</h4>
+                <div class="mb-2"><span class="brutal-badge text-[8px]">sob encomenda | ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Nossa massa de brioche em formato de hamburger e gergelim branco por cima. Bem macio e saboroso.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão Trigo Sarraceno</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Com sabor imbatível e muita personalidade, o trigo mourisco é combinado com farinha de trigo orgânico. Equilibrado e delicioso. Vai bem com manteiga e queijos intensos.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão Integral</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano, orgânico</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Pão com 90% de farinha integral orgânica - pois alimentamos nosso fermento com farinha branca orgânica - e fermentação 100% natural. Fermentação de 24h.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pão Integral com Grãos</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Nosso pão integral com uma combinação pré-hidratada de chia, amaranto, linhaça, quinoa e gergelim.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Pãozinho de Tapioca</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Carro chefe da padaria, criação da Carol, que combinou receita paraense com pão de queijo. Leva farinha de tapioca do Pará, queijo da Serra da Canastra, ovos orgânicos, manteiga e leite.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Ramazan Pidesi</h4>
+                <div class="mb-2"><span class="brutal-badge">vegano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Pão tradicional turco, consumido principalmente no Ramadan. Tem uma base de farinha de trigo orgânico, água e sal e leva zattar, flor de sal e fio de azeite extravirgem.</p>
+            </div>
+
+            <div class="zine-item border-b-4 border-[#111] pb-4">
+                <h4 class="font-display text-2xl uppercase mb-1 text-[#F15A29]">Rolinho de Canela</h4>
+                <div class="mb-2"><span class="brutal-badge">ovolactovegetariano</span></div>
+                <p class="text-sm font-bold leading-relaxed text-[#111]">Massa de brioche enrolada com um creme de canela, açúcar mascavo e manteiga. Ganha calda de laranja com cardamomo. Opções com cobertura de limão siciliano e cream cheese ou doce de leite argentino.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECÇÃO: ONDE ESTAMOS -->
+    <section id="unidades" class="py-24 container mx-auto px-6">
+        
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-display uppercase text-[#111] inline-block bg-[#FFD141] px-8 py-3 border-4 border-[#111] brutal-shadow-static transform -rotate-2">
+                Onde Estamos
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            
+            <!-- UNIDADE 1 - VILA ANGLO -->
+            <div class="bg-white border-4 border-[#111] p-8 brutal-shadow relative">
+                <!-- Etiqueta de Unidade -->
+                <div class="absolute -top-5 left-6 bg-[#F15A29] border-4 border-[#111] px-4 py-1 font-display text-white uppercase text-xl">
+                    Unidade 1
+                </div>
+                
+                <h3 class="text-3xl lg:text-4xl font-display uppercase text-[#F15A29] mt-6 mb-8 leading-tight">
+                    Rua Dr. Miranda <br> de Azevedo <br> Nº 1187 - Vila Anglo
+                </h3>
+                
+                <ul class="space-y-4 font-bold text-[#F15A29] text-lg uppercase tracking-wider">
+                    <li class="flex justify-between items-end border-b-4 border-dashed border-[#F15A29]/30 pb-2">
+                        <span>Terça a Sexta</span>
+                        <span class="font-serif-italic normal-case text-4xl text-[#111]">9h-19h</span>
+                    </li>
+                    <li class="flex justify-between items-end border-b-4 border-dashed border-[#F15A29]/30 pb-2">
+                        <span>Sábado</span>
+                        <span class="font-serif-italic normal-case text-4xl text-[#111]">9h-14h</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- UNIDADE 2 - PERDIZES -->
+            <div class="bg-white border-4 border-[#111] p-8 brutal-shadow relative mt-8 md:mt-0">
+                <!-- Etiqueta de Unidade -->
+                <div class="absolute -top-5 left-6 bg-[#FFD141] border-4 border-[#111] px-4 py-1 font-display text-[#111] uppercase text-xl">
+                    Unidade 2
+                </div>
+                
+                <h3 class="text-3xl lg:text-4xl font-display uppercase text-[#F15A29] mt-6 mb-2 leading-tight">
+                    Rua Tucuna 856 <br> Perdizes
+                </h3>
+                
+                <div class="mb-6 inline-block bg-[#111] text-[#FFD141] px-3 py-1 font-bold text-xs uppercase tracking-widest">
+                    Horários de Soft Opening
+                </div>
+                
+                <ul class="space-y-4 font-bold text-[#F15A29] text-lg uppercase tracking-wider">
+                    <li class="flex justify-between items-end border-b-4 border-dashed border-[#F15A29]/30 pb-2">
+                        <span>Terça a Sexta</span>
+                        <span class="font-serif-italic normal-case text-4xl text-[#111]">7h-17h</span>
+                    </li>
+                    <li class="flex justify-between items-end border-b-4 border-dashed border-[#F15A29]/30 pb-2">
+                        <span>Sábado</span>
+                        <span class="font-serif-italic normal-case text-4xl text-[#111]">8h-14h</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-16 bg-white inline-block mx-auto border-4 border-[#111] px-8 py-3 transform rotate-1 brutal-shadow-static flex justify-center w-max mx-auto">
+            <h4 class="text-3xl font-display text-[#111] uppercase tracking-widest">São Paulo - SP</h4>
+        </div>
+    </section>
+
+    <!-- RODAPÉ (Footer) -->
+    <footer class="bg-[#111] text-[#FFD141] py-12 border-t-8 border-[#F15A29]">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-display text-4xl uppercase mb-6 tracking-tighter">Forno Fecchio</h2>
+            <div class="max-w-xl mx-auto border-4 border-[#FFD141] p-6 mb-8 transform rotate-1 brutal-shadow-static">
+                <p class="font-bold text-sm uppercase leading-relaxed text-[#FFD141]">
+                    Usamos farinhas orgânicas, sem aditivos, "melhoradores" ou correções. Cada lote é único, influenciado pelo sol e pelas chuvas. Acompanhamos a sazonalidade. Nos folhados utilizamos farinhas francesas certificadas.
+                </p>
+            </div>
+            <div class="flex justify-center space-x-6 uppercase font-bold text-sm tracking-widest">
+                <a href="#" class="hover:text-[#F15A29] transition-colors underline decoration-2 underline-offset-4">Instagram</a>
+                <a href="https://wa.me/5511999999999" target="_blank" class="hover:text-[#F15A29] transition-colors underline decoration-2 underline-offset-4">WhatsApp</a>
+            </div>
+            <div class="mt-12 text-xs font-bold opacity-50 uppercase tracking-widest">
+                &copy; 2024 Forno Fecchio. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

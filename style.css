@@ -1,0 +1,15 @@
+/* Importando as fontes do Google Fonts direto no CSS */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+/* Definindo as fontes customizadas */
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-sans { font-family: 'Lato', sans-serif; }
+
+/* Efeito de suavidade ao rolar a página para as âncoras do menu */
+html { scroll-behavior: smooth; }
+
+/* Overlay de grão de filme/papel rústico */
+.bg-grain {
+    background-color: #F9F7F2;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
