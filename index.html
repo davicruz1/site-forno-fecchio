@@ -12,61 +12,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@1,600;1,800&family=Ultra&display=swap" rel="stylesheet">
 
     <style>
-        /* Tipografia Baseada na Identidade */
         .font-display { font-family: 'Archivo Black', sans-serif; }
         .font-mono { font-family: 'Space Mono', monospace; }
         .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
         .font-clarendon { font-family: 'Clarendon', 'Ultra', serif; font-weight: 900; }
 
-        /* Cores Oficiais */
         :root {
             --amarelo: #FFD141;
             --laranja: #F15A29;
             --preto: #111;
+            --off-white: #F4F4F4;
         }
 
-        /* Fundo com Wallpaper Escurecido */
         body {
-            background-color: #111; /* Cor escura de segurança */
-            
-            /* Camada escura (rgba) por cima da imagem 'fundo2.jpg' */
+            background-color: #111;
             background-image: 
-                linear-gradient(rgba(230, 210, 107, 0.75), rgba(17, 17, 17, 0.85)), 
+                linear-gradient(rgba(17, 17, 17, 0.75), rgba(17, 17, 17, 0.85)), 
                 url('fundo2.png'); 
-            
-            background-size: cover; /* Cobre a tela toda. Mude para 'contain' se quiser a imagem 100% inteira sem nenhum corte nas bordas */
-            background-position: center; /* Centraliza a imagem */
-            background-attachment: fixed; /* Deixa o fundo parado enquanto a página rola */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             background-repeat: no-repeat;
-            
             color: var(--preto);
         }
 
-        /* Sombras Sólidas Neo-brutalistas */
         .brutal-shadow {
-            box-shadow: 6px 6px 0px 0px var(--preto);
-            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0px 0px var(--preto);
+            transition: all 0.15s ease-in-out;
         }
         .brutal-shadow:hover {
-            box-shadow: 10px 10px 0px 0px var(--preto);
-            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px 0px var(--preto);
+            transform: translate(-2px, -2px);
         }
         .brutal-shadow-static {
-            box-shadow: 6px 6px 0px 0px var(--preto);
+            box-shadow: 5px 5px 0px 0px var(--preto);
         }
 
-        /* Etiquetas (Badges) */
-        .brutal-badge {
-            border: 2px solid var(--preto);
-            padding: 2px 8px;
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            display: inline-block;
-            background-color: var(--amarelo);
-        }
-
-        /* Animação do Letreiro (Marquee) */
+        /* Animação do Letreiro */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -86,56 +68,88 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Layout de Jornal para o Dicionário de Pães */
         .zine-columns {
             column-count: 1;
             column-gap: 2rem;
         }
         @media (min-width: 768px) { .zine-columns { column-count: 2; } }
         @media (min-width: 1024px) { .zine-columns { column-count: 3; } }
-        .zine-item {
-            break-inside: avoid;
-            page-break-inside: avoid;
-            margin-bottom: 2rem;
+        
+        .nav-link-badge {
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover .nav-link-badge {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body class="font-mono antialiased overflow-x-hidden">
 
-    <!-- CABEÇALHO / MENU -->
-    <header class="fixed top-0 w-full z-50 bg-[#FFD141] border-b-4 border-[#111]">
-        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
+    <!-- NAV BAR REFINADA -->
+    <header class="fixed top-0 w-full z-50 px-4 py-4 md:px-8">
+        <nav class="container mx-auto bg-[#F4F4F4]/95 backdrop-blur-sm border-4 border-[#111] brutal-shadow-static h-20 md:h-24 flex justify-between items-center px-6 relative">
             
-            <!-- Logótipo -->
-            <a href="#" class="block h-16 md:h-24 -ml-2 hover:scale-105 transition-transform duration-300">
-                <img src="logo_forno.png" alt="Forno Fecchio" class="h-full object-contain mix-blend-multiply" onerror="this.outerHTML='<div class=\'text-2xl font-display text-[#F15A29]\'>FORNO FECCHIO</div>'">
-            </a>
-
-            <!-- Ligações de Navegação -->
-            <div class="hidden md:flex space-x-6 lg:space-x-10 font-mono font-bold text-base lg:text-lg uppercase items-center tracking-wider text-[#111]">
-                <a href="#cardapio" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Cardápio</a>
-                <a href="#especiais" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Especiais</a>
-                <a href="#unidades" class="px-2 py-1 hover:bg-[#111] hover:text-[#FFD141] transition-colors duration-200">Onde Estamos</a>
+            <!-- Logotipo com detalhe amarelo atrás -->
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-[#FFD141] border-2 border-[#111] transition-transform group-hover:rotate-3"></div>
+                <a href="#" class="relative block h-12 md:h-14 bg-white border-2 border-[#111] px-2 py-1">
+                    <img src="logo_forno.png" alt="Forno Fecchio" class="h-full object-contain mix-blend-multiply" onerror="this.outerHTML='<span class=\'font-display text-lg leading-none\'>FORNO<br>FECCHIO</span>'">
+                </a>
             </div>
-            
-            <!-- Botão Retrô WhatsApp -->
-            <a href="https://wa.me/5511999999999" target="_blank" class="hidden md:inline-block bg-[#F15A29] text-white border-4 border-[#111] px-6 py-3 font-display uppercase tracking-widest text-sm brutal-shadow hover:bg-[#111] hover:text-[#F15A29] transition-colors">
-                Fazer Pedido
-            </a>
+
+            <!-- Navegação Desktop -->
+            <div class="hidden md:flex items-center space-x-8">
+                <div class="flex space-x-6 font-bold uppercase text-sm tracking-tighter">
+                    <a href="#cardapio" class="nav-link relative group flex flex-col items-center">
+                        <span class="nav-link-badge absolute -top-6 bg-[#FFD141] border border-[#111] px-2 py-0.5 text-[10px]">Ver Menu</span>
+                        <span class="hover:text-[#F15A29] transition-colors">Cardápio</span>
+                    </a>
+                    <a href="#especiais" class="nav-link relative group flex flex-col items-center">
+                        <span class="nav-link-badge absolute -top-6 bg-[#FFD141] border border-[#111] px-2 py-0.5 text-[10px]">Novidades</span>
+                        <span class="hover:text-[#F15A29] transition-colors">Especiais</span>
+                    </a>
+                    <a href="#unidades" class="nav-link relative group flex flex-col items-center">
+                        <span class="nav-link-badge absolute -top-6 bg-[#FFD141] border border-[#111] px-2 py-0.5 text-[10px]">Visite-nos</span>
+                        <span class="hover:text-[#F15A29] transition-colors">Lojas</span>
+                    </a>
+                </div>
+
+                <!-- Botão WhatsApp com Estilo Refinado -->
+                <a href="https://wa.me/5511979693386" target="_blank" class="bg-[#F15A29] text-white border-2 border-[#111] px-6 py-2 font-display uppercase text-xs tracking-widest brutal-shadow flex items-center gap-2 group">
+                    <span class="group-hover:animate-pulse">●</span> Fazer Pedido
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 focus:outline-none">
+                <div id="bar1" class="w-8 h-1 bg-[#111] transition-all"></div>
+                <div id="bar2" class="w-8 h-1 bg-[#111] transition-all"></div>
+            </button>
         </nav>
+
+        <!-- Menu Mobile Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-[#FFD141] z-[-1] hidden flex-col justify-center items-center p-8 transition-all">
+            <div class="space-y-8 text-center">
+                <a href="#cardapio" class="block font-display text-4xl uppercase border-b-4 border-[#111] mobile-link">Cardápio</a>
+                <a href="#especiais" class="block font-display text-4xl uppercase border-b-4 border-[#111] mobile-link">Especiais</a>
+                <a href="#unidades" class="block font-display text-4xl uppercase border-b-4 border-[#111] mobile-link">Unidades</a>
+                <a href="https://wa.me/5511979693386" class="block bg-[#F15A29] text-white font-display text-2xl p-4 border-4 border-[#111] brutal-shadow">Pedido WhatsApp</a>
+            </div>
+        </div>
     </header>
 
-    <!-- SECÇÃO DE DESTAQUE (Hero) -->
-    <section class="pt-40 pb-16 px-6 container mx-auto flex flex-col items-center text-center">
-        <!-- Balão de Texto -->
+    <!-- HERO SECTION (Ajustada para a nova navbar) -->
+    <section class="pt-48 pb-16 px-6 container mx-auto flex flex-col items-center text-center">
         <div class="bg-white border-4 border-[#111] px-4 py-1 mb-8 inline-block transform -rotate-2 brutal-shadow-static">
             <span class="font-clarendon tracking-widest text-[#F15A29] text-xl">FFF</span>
         </div>
         
-        <!-- Título principal agora em blocos para destacar no fundo escuro -->
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-display uppercase leading-tight mb-10 space-y-4">
-            <span class="bg-[#FFD141] text-[#111] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform -rotate-1">Forno</span> <br> 
-            <span class="bg-white text-[#F15A29] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform rotate-1 mt-2">Fecchio</span>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-display uppercase leading-tight mb-10">
+            <span class="bg-[#FFD141] text-[#111] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform -rotate-1">Panifício</span> <br> 
+            <span class="bg-white text-[#F15A29] px-6 py-2 border-4 border-[#111] brutal-shadow inline-block transform rotate-1 mt-2">Artesanal</span>
         </h1>
         
         <p class="max-w-xl font-bold text-lg bg-white border-4 border-[#111] p-5 brutal-shadow-static transform rotate-1 text-[#111]">
@@ -574,7 +588,7 @@
             </div>
             <div class="flex justify-center space-x-6 uppercase font-bold text-sm tracking-widest">
                 <a href="#" class="hover:text-[#F15A29] transition-colors underline decoration-2 underline-offset-4">Instagram</a>
-                <a href="https://wa.me/5511999999999" target="_blank" class="hover:text-[#F15A29] transition-colors underline decoration-2 underline-offset-4">WhatsApp</a>
+                <a href="https://wa.me/5511979693386" target="_blank" class="hover:text-[#F15A29] transition-colors underline decoration-2 underline-offset-4">WhatsApp</a>
             </div>
             <div class="mt-12 text-xs font-bold opacity-50 uppercase tracking-widest">
                 &copy; 2024 Forno Fecchio. Todos os direitos reservados.
